@@ -1,3 +1,5 @@
+import { useState } from "react";
+import CreateUser from "./component/CreateUser";
 import UserList from "./component/UserList";
 
 function App() {
@@ -19,8 +21,29 @@ function App() {
     },
   ];
 
+  const [inputs, setInputs] = useState({
+    username: "",
+    email: "",
+  });
+  const { username, email } = inputs;
+
+  const onChange = (e) => {
+    const { name, value } = e.target;
+    setInputs({
+      ...inputs,
+      [name]: value,
+    });
+  };
+  const onCreate = () => {};
+
   return (
     <>
+      <CreateUser
+        username={username}
+        email={email}
+        onChange={onChange}
+        onCreate={onCreate}
+      />
       <UserList users={users} />
     </>
   );
