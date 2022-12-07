@@ -1,10 +1,15 @@
 import React from "react";
 
-const User = ({ user, onRemove }) => {
+const User = ({ user, onRemove, onToggle }) => {
   return (
     <div>
-      <span>{user.username}</span>
-      <b>({user.email})</b>
+      <b
+        style={{ cursor: "pointer", color: user.isActive ? "green" : "black" }}
+        onClick={() => onToggle(user.id)}
+      >
+        {user.username}
+      </b>
+      <span>({user.email})</span>
       <button onClick={() => onRemove(user.id)}>Delete</button>
     </div>
   );
