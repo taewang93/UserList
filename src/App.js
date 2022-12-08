@@ -1,6 +1,7 @@
 import { useMemo, useRef, useState } from "react";
 import CreateUser from "./component/CreateUser";
 import UserList from "./component/UserList";
+import { UserProvider } from "./context/UserContext";
 
 function App() {
   const [users, setUsers] = useState([
@@ -71,14 +72,16 @@ function App() {
 
   return (
     <>
-      <CreateUser
-        username={username}
-        email={email}
-        onChange={onChange}
-        onCreate={onCreate}
-      />
-      <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
-      <p>{activeUser}</p>
+      <UserProvider>
+        <CreateUser
+          username={username}
+          email={email}
+          onChange={onChange}
+          onCreate={onCreate}
+        />
+        <UserList users={users} onRemove={onRemove} onToggle={onToggle} />
+        <p>{activeUser}</p>
+      </UserProvider>
     </>
   );
 }
