@@ -1,22 +1,32 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { useUserDispatch, useUserState } from "../context/UserContext";
 
-const User = ({ user, onRemove, onToggle }) => {
-  useEffect(() => {
-    console.log(user);
-    return () => {
-      console.log(user);
-    };
-  }, [user]);
+const User = ({ num }) => {
+  const UserData = useUserState();
+  const NowUser = UserData.users[num];
+  const UserDispatch = useUserDispatch();
+
+  const onRemove = () => {
+    UserDispatch({ type: "REMOVE_USER", id: NowUser.id });
+  };
+
+  const onToggle = () => {
+    UserDispatch({ type: "TOGGLE_USER", id: NowUser.id });
+  };
+
   return (
     <div>
       <b
-        style={{ cursor: "pointer", color: user.isActive ? "green" : "black" }}
-        onClick={() => onToggle(user.id)}
+        style={{
+          cursor: "pointer",
+          color: NowUser.isActive ? "green" : "black",
+        }}
+        onClick={() => onToggle(NowUser.id)}
       >
-        {user.username}
+        {NowUser.username}
       </b>
-      <span>({user.email})</span>
-      <button onClick={() => onRemove(user.id)}>Delete</button>
+      <span>({NowUser.email})</span>
+      <button onClick={() => onRemove(NowUser.id)}>Delete</button>
     </div>
   );
 };
